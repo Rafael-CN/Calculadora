@@ -4,7 +4,7 @@ import Digit from "./components/Digit";
 
 import { TaskContext } from "./contexts/TaskContext";
 import { toOperation, toDisplay } from "./utils/Utils";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 
 export default function App() {
 	const [task, setTask] = useState("0");
@@ -25,45 +25,17 @@ export default function App() {
 		}
 	};
 
-	const styles = StyleSheet.create({
-		container: {
-			flex: 1,
-			backgroundColor: "#000",
-			alignItems: "center",
-			justifyContent: "flex-end",
-			paddingBottom: 30,
-		},
-
-		mainSection: {
-			display: "flex",
-			flexDirection: "row",
-		},
-
-		numberLine: {
-			display: "flex",
-			flexDirection: "row",
-		},
-
-		result: {
-			width: "88%",
-			height: 90,
-			marginBottom: 30,
-			alignContent: "flex-end",
-		},
-
-		resultText: {
-			fontSize: 80,
-			fontWeight: "200",
-			color: "#eee",
-			textAlign: "right",
-		},
-	});
-
 	return (
 		<View style={styles.container}>
 			<TaskContext.Provider value={{ task, setTask }}>
 				<View style={styles.result}>
-					<Text style={styles.resultText}>{task}</Text>
+					<Text
+						style={styles.resultText}
+						adjustsFontSizeToFit={true}
+						numberOfLines={1}
+					>
+						{task}
+					</Text>
 				</View>
 
 				<View style={styles.mainSection} role="">
@@ -118,3 +90,37 @@ export default function App() {
 		</View>
 	);
 }
+
+const styles = StyleSheet.create({
+	container: {
+		flex: 1,
+		backgroundColor: "#000",
+		alignItems: "center",
+		justifyContent: "flex-end",
+		paddingBottom: 30,
+	},
+
+	mainSection: {
+		display: "flex",
+		flexDirection: "row",
+	},
+
+	numberLine: {
+		display: "flex",
+		flexDirection: "row",
+	},
+
+	result: {
+		width: "88%",
+		height: 90,
+		marginBottom: 30,
+		alignContent: "flex-end",
+	},
+
+	resultText: {
+		fontSize: 80,
+		fontWeight: "200",
+		color: "#eee",
+		textAlign: "right",
+	},
+});
