@@ -1,10 +1,11 @@
 import { useContext, useEffect, useRef } from "react";
 import { Animated, StyleSheet, Text, View } from "react-native";
+import { ThemeContext } from "../contexts/ThemeContext";
 import { TaskContext } from "../contexts/TaskContext";
 import { FadeIn } from "../utils/Animations";
-import { Theme } from "../utils/Colors";
 
 export default function Result() {
+	const { theme, alternateTheme } = useContext(ThemeContext);
 	const { task, didTask, lastTask } = useContext(TaskContext);
 
 	const fadeAnim = useRef(new Animated.Value(1)).current;
@@ -12,15 +13,48 @@ export default function Result() {
 		if (didTask) FadeIn(fadeAnim);
 	}, [didTask]);
 
+	const styles = StyleSheet.create({
+		topSection: {
+			width: "100%",
+			height: "40%",
+			marginBottom: 20,
+			justifyContent: "flex-end",
+			backgroundColor: theme.dark,
+			borderBottomLeftRadius: 80,
+		},
+
+		result: {
+			marginHorizontal: 30,
+			marginBottom: 30,
+		},
+
+		lastResult: {
+			marginHorizontal: 30,
+			fontSize: 35,
+			fontWeight: "300",
+			textAlign: "right",
+			color: theme.light,
+		},
+
+		resultText: {
+			fontSize: 100,
+			fontWeight: "300",
+			color: theme.light,
+			textAlign: "right",
+		},
+	});
+
 	return (
-		<View style={styles.topSection}>
-			<Text
-				style={styles.lastResult}
-				adjustsFontSizeToFit={true}
-				numberOfLines={1}
-			>
-				{lastTask}
-			</Text>
+		<View style={styles.topSection} onTouchStart={alternateTheme}>
+			<View style={{ opacity: 0.6 }}>
+				<Animated.Text
+					style={[styles.lastResult, { opacity: fadeAnim }]}
+					adjustsFontSizeToFit={true}
+					numberOfLines={1}
+				>
+					{lastTask}
+				</Animated.Text>
+			</View>
 
 			<Animated.View style={[styles.result, { opacity: fadeAnim }]}>
 				<Text
@@ -34,34 +68,3 @@ export default function Result() {
 		</View>
 	);
 }
-
-const styles = StyleSheet.create({
-	topSection: {
-		width: "100%",
-		height: "37%",
-		marginBottom: 20,
-		justifyContent: "flex-end",
-		backgroundColor: Theme.dark,
-		borderBottomLeftRadius: 60,
-	},
-
-	result: {
-		marginHorizontal: 30,
-		marginBottom: 30,
-	},
-
-	lastResult: {
-		marginHorizontal: 30,
-		fontSize: 30,
-		fontWeight: "300",
-		color: Theme.primary,
-		textAlign: "right",
-	},
-
-	resultText: {
-		fontSize: 100,
-		fontWeight: "300",
-		color: Theme.light,
-		textAlign: "right",
-	},
-});

@@ -1,20 +1,59 @@
+import * as NavigationBar from "expo-navigation-bar";
 import { StyleSheet, View } from "react-native";
-import { Colors } from "./utils/Colors";
-
+import { StatusBar } from "expo-status-bar";
 import Result from "./components/Result";
 import Digit from "./components/Digit";
 
+import { TaskContext } from "./contexts/TaskContext";
+import { useContext } from "react";
+import { ThemeContext } from "./contexts/ThemeContext";
+
 export default function Calculator() {
+	const { theme, colors } = useContext(ThemeContext);
+	NavigationBar.setBackgroundColorAsync(theme.primary);
+
+	const { resetTask, removeLastDigit, doTask } = useContext(TaskContext);
+
+	const styles = StyleSheet.create({
+		container: {
+			flex: 1,
+			backgroundColor: theme.primary,
+			alignItems: "center",
+			justifyContent: "flex-end",
+			paddingBottom: 15,
+		},
+
+		mainSection: {
+			display: "flex",
+			flexDirection: "row",
+		},
+
+		numberLine: {
+			display: "flex",
+			flexDirection: "row",
+		},
+	});
+
 	return (
-		<View style={{ width: "100%" }}>
+		<View style={styles.container}>
+			<StatusBar style="light"></StatusBar>
+
 			<Result></Result>
 
 			<View style={styles.mainSection} role="">
 				<View style={styles.leftSection}>
 					<View style={styles.numberLine}>
-						<Digit text="C" theme={Colors.LIGHT} onPress={() => {}}></Digit>
-						<Digit text="⌫" theme={Colors.LIGHT} onPress={() => {}}></Digit>
-						<Digit text="( )" theme={Colors.LIGHT} onPress={() => {}}></Digit>
+						<Digit text="C" style={colors.INVERTED} onPress={resetTask}></Digit>
+						<Digit
+							text="⌫"
+							style={colors.INVERTED}
+							onPress={removeLastDigit}
+						></Digit>
+						<Digit
+							text="( )"
+							style={colors.INVERTED}
+							onPress={() => {}}
+						></Digit>
 					</View>
 
 					{[
@@ -38,25 +77,13 @@ export default function Calculator() {
 				</View>
 
 				<View style={styles.rightSection}>
-					<Digit text="÷" theme={Colors.COLORED}></Digit>
-					<Digit text="×" theme={Colors.COLORED}></Digit>
-					<Digit text="+" theme={Colors.COLORED}></Digit>
-					<Digit text="−" theme={Colors.COLORED}></Digit>
-					<Digit text="=" theme={Colors.COLORED} onPress={() => {}}></Digit>
+					<Digit text="÷" style={colors.INVERTED}></Digit>
+					<Digit text="×" style={colors.INVERTED}></Digit>
+					<Digit text="+" style={colors.INVERTED}></Digit>
+					<Digit text="−" style={colors.INVERTED}></Digit>
+					<Digit text="=" style={colors.INVERTED} onPress={doTask}></Digit>
 				</View>
 			</View>
 		</View>
 	);
 }
-
-const styles = StyleSheet.create({
-	mainSection: {
-		display: "flex",
-		flexDirection: "row",
-	},
-
-	numberLine: {
-		display: "flex",
-		flexDirection: "row",
-	},
-});
