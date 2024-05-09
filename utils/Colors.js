@@ -1,19 +1,18 @@
-const Colors = {
-	DEFAULT: {
-		fontColor: "#eee",
-		backgroundColor: "#111",
-		highlightColor: "#000",
-	},
-	COLORED: {
-		fontColor: "#fff",
-		backgroundColor: "#7765E3",
-		highlightColor: "#9485E9",
-	},
-	INVERTED: {
-		fontColor: "#eee",
-		backgroundColor: "#4E505F",
-		highlightColor: "#222",
-	},
+export const Theme = {
+	primary: "#4E505F",
+	dark: "#3B3C4A",
+	light: "#B0B1BE",
 };
 
-export { Colors };
+export const Colors = {
+	DEFAULT: {
+		fontColor: Theme.light,
+		backgroundColor: Theme.dark,
+		highlightColor: Theme.primary,
+	},
+	INVERTED: {
+		fontColor: Theme.dark,
+		backgroundColor: Theme.light,
+		highlightColor: Theme.primary,
+	},
+};

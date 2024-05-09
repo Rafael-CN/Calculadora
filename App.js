@@ -1,19 +1,33 @@
-import { ScrollView, StyleSheet, Text, View } from "react-native";
-import { Colors } from "./utils/Colors";
+import * as NavigationBar from "expo-navigation-bar";
+import { StyleSheet, View } from "react-native";
+import { StatusBar } from "expo-status-bar";
+import Result from "./components/Result";
 import Digit from "./components/Digit";
 
-import { TaskContext } from "./contexts/TaskContext";
 import { toOperation, toDisplay } from "./utils/Utils";
+import { TaskContext, TaskContextProvider } from "./contexts/TaskContext";
+import { Colors, Theme } from "./utils/Colors";
 import { useState } from "react";
 
 export default function App() {
+	NavigationBar.setBackgroundColorAsync("#3A3C4A");
+
 	const [task, setTask] = useState("0");
+	const [didTask, setDidTask] = useState(false);
+	const [lastTask, setLastTask] = useState("");
 
 	const resetTask = () => {
 		setTask("0");
+		setLastTask("");
+	};
+
+	const removeLastDigit = () => {
+		setTask(task.length > 1 ? task.slice(0, -1) : "0");
 	};
 
 	const doTask = () => {
+		setLastTask(task);
+
 		let evalString = task;
 		evalString = toOperation(evalString);
 
@@ -23,20 +37,18 @@ export default function App() {
 		} catch (e) {
 			setTask("0");
 		}
+
+		setDidTask(true);
 	};
 
 	return (
 		<View style={styles.container}>
-			<TaskContext.Provider value={{ task, setTask }}>
-				<View style={styles.result}>
-					<Text
-						style={styles.resultText}
-						adjustsFontSizeToFit={true}
-						numberOfLines={1}
-					>
-						{task}
-					</Text>
-				</View>
+			<StatusBar style="light"></StatusBar>
+
+			<TaskContext.Provider
+				value={{ task, setTask, didTask, setDidTask, lastTask, setLastTask }}
+			>
+				<Result></Result>
 
 				<View style={styles.mainSection} role="">
 					<View style={styles.leftSection}>
@@ -47,12 +59,12 @@ export default function App() {
 								onPress={resetTask}
 							></Digit>
 							<Digit
-								text="("
+								text="⌫"
 								theme={Colors.INVERTED}
-								onPress={() => {}}
+								onPress={removeLastDigit}
 							></Digit>
 							<Digit
-								text=")"
+								text="( )"
 								theme={Colors.INVERTED}
 								onPress={() => {}}
 							></Digit>
@@ -79,11 +91,11 @@ export default function App() {
 					</View>
 
 					<View style={styles.rightSection}>
-						<Digit text="÷" theme={Colors.COLORED}></Digit>
-						<Digit text="×" theme={Colors.COLORED}></Digit>
-						<Digit text="+" theme={Colors.COLORED}></Digit>
-						<Digit text="−" theme={Colors.COLORED}></Digit>
-						<Digit text="=" theme={Colors.COLORED} onPress={doTask}></Digit>
+						<Digit text="÷" theme={Colors.INVERTED}></Digit>
+						<Digit text="×" theme={Colors.INVERTED}></Digit>
+						<Digit text="+" theme={Colors.INVERTED}></Digit>
+						<Digit text="−" theme={Colors.INVERTED}></Digit>
+						<Digit text="=" theme={Colors.INVERTED} onPress={doTask}></Digit>
 					</View>
 				</View>
 			</TaskContext.Provider>
@@ -94,10 +106,10 @@ export default function App() {
 const styles = StyleSheet.create({
 	container: {
 		flex: 1,
-		backgroundColor: "#000",
+		backgroundColor: Theme.primary,
 		alignItems: "center",
 		justifyContent: "flex-end",
-		paddingBottom: 30,
+		paddingBottom: 25,
 	},
 
 	mainSection: {
@@ -108,19 +120,5 @@ const styles = StyleSheet.create({
 	numberLine: {
 		display: "flex",
 		flexDirection: "row",
-	},
-
-	result: {
-		width: "88%",
-		height: 90,
-		marginBottom: 30,
-		alignContent: "flex-end",
-	},
-
-	resultText: {
-		fontSize: 80,
-		fontWeight: "200",
-		color: "#eee",
-		textAlign: "right",
 	},
 });

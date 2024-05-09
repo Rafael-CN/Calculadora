@@ -1,5 +1,3 @@
-import { createContext } from "react";
+import { createContext, useState } from "react";
 
-const TaskContext = createContext();
-
-export { TaskContext };
+export const TaskContext = createContext();
