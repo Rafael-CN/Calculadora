@@ -1,5 +1,5 @@
 const isOperation = (e) => {
-	return ["×", "÷", "+", "−"].includes(e);
+	return ["×", "÷", "+", "−", "^"].includes(e);
 };
 
 const isSpecial = (e) => {
@@ -18,7 +18,11 @@ const toOperation = (e) => {
 
 const hasOperation = (e) => {
 	return (
-		e.includes("×") || e.includes("÷") || e.includes("+") || e.includes("−")
+		e.includes("×") ||
+		e.includes("÷") ||
+		e.includes("+") ||
+		e.includes("−") ||
+		e.includes("^")
 	);
 };
 

@@ -25,7 +25,7 @@ export const TaskContextProvider = ({ children }) => {
 	};
 
 	const repeatTask = () => {
-		const split = lastTask.split(/[×÷+−]+/);
+		const split = lastTask.split(/[×÷+−^]+/);
 		const lastNumber = split[split.length - 1];
 
 		const repeatTask =
@@ -61,7 +61,7 @@ export const TaskContextProvider = ({ children }) => {
 			newTask = task.slice(0, -1) + e.toString();
 		}
 		if (e === ",") {
-			const split = task.split(/[×÷+−]+/);
+			const split = task.split(/[×÷+−^]+/);
 			let lastNumber = split[split.length - 1];
 			if (lastNumber === "") lastNumber = split[split.length - 2];
 
