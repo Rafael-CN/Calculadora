@@ -14,6 +14,7 @@ const defaultFontSize = 30;
 
 export default function Digit({
 	text,
+	value = null,
 	onPress = null,
 	style = null,
 	size = 1,
@@ -60,7 +61,7 @@ export default function Digit({
 				Pulse(fontSizeAnim, defaultFontSize);
 				Highlight(bgAnim);
 
-				onPress ? onPress() : addDigit(text);
+				onPress ? onPress() : addDigit(value || text);
 			}}
 			onTouchEnd={() => {}}
 		>

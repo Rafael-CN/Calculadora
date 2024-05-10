@@ -1,16 +1,10 @@
 import { useContext, useEffect, useRef, useState } from "react";
-import {
-	Animated,
-	StyleSheet,
-	Text,
-	TouchableHighlight,
-	Vibration,
-	View,
-} from "react-native";
+import { Animated, StyleSheet, Text, Vibration, View } from "react-native";
 import { ThemeContext } from "../contexts/ThemeContext";
 import { TaskContext } from "../contexts/TaskContext";
 import { FadeIn, Highlight } from "../utils/Animations";
 import Entypo from "@expo/vector-icons/Entypo";
+import ColorTransition from "../components/ColorTransition";
 
 export default function Result() {
 	const { theme, alternateTheme } = useContext(ThemeContext);
@@ -21,17 +15,11 @@ export default function Result() {
 		if (didTask) FadeIn(fadeAnim);
 	}, [didTask]);
 
-	const [iconAnim] = useState(new Animated.Value(0));
-	const iconBgColor = iconAnim.interpolate({
-		inputRange: [0, 1],
-		outputRange: ["rgba(255,255,255,0)", "rgba(255,255,255,0.1)"],
-	});
-
 	const styles = StyleSheet.create({
 		topSection: {
 			width: "100%",
 			height: "40%",
-			marginBottom: 20,
+			marginBottom: 10,
 			justifyContent: "flex-end",
 			backgroundColor: theme.displayBackground,
 			borderBottomLeftRadius: theme.borderRadius * 1.5,
@@ -41,11 +29,10 @@ export default function Result() {
 			position: "absolute",
 			top: 70,
 			left: 10,
-			zIndex: 1,
+			zIndex: 5,
 			padding: 25,
 			width: 75,
 			borderRadius: theme.borderRadius,
-			backgroundColor: iconBgColor,
 		},
 
 		themeIcon: {
@@ -74,16 +61,23 @@ export default function Result() {
 		},
 	});
 
+	const transitionRef = useRef();
+
 	return (
 		<View style={styles.topSection}>
+			<ColorTransition ref={transitionRef} />
+
 			<Animated.View
 				style={styles.themeButton}
 				underlayColor={theme.background}
 				onTouchStart={() => {
+					if (!transitionRef.current.available) return;
+					transitionRef.current.doEffect();
 					Vibration.vibrate(150);
-					Highlight(iconAnim);
 
-					alternateTheme();
+					setTimeout(() => {
+						alternateTheme();
+					}, 250);
 				}}
 			>
 				<Entypo name="light-bulb" style={styles.themeIcon}></Entypo>

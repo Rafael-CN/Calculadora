@@ -7,6 +7,7 @@ import Digit from "./components/Digit";
 import { TaskContext } from "./contexts/TaskContext";
 import { useContext } from "react";
 import { ThemeContext } from "./contexts/ThemeContext";
+import { AntDesign, FontAwesome5 } from "@expo/vector-icons";
 
 export default function Calculator() {
 	const { theme, colors } = useContext(ThemeContext);
@@ -20,12 +21,13 @@ export default function Calculator() {
 			backgroundColor: theme.background,
 			alignItems: "center",
 			justifyContent: "flex-end",
-			paddingBottom: 15,
+			paddingBottom: 10,
 		},
 
 		mainSection: {
 			display: "flex",
 			flexDirection: "row",
+			zIndex: -1,
 		},
 
 		numberLine: {
@@ -40,7 +42,7 @@ export default function Calculator() {
 
 			<Result></Result>
 
-			<View style={styles.mainSection} role="">
+			<View style={styles.mainSection}>
 				<View style={styles.leftSection}>
 					<View style={styles.numberLine}>
 						<Digit text="C" style={colors.INVERTED} onPress={resetTask}></Digit>
@@ -50,9 +52,9 @@ export default function Calculator() {
 							onPress={removeLastDigit}
 						></Digit>
 						<Digit
-							text="( )"
+							text={<AntDesign name="up" size={24} />}
+							value="^"
 							style={colors.INVERTED}
-							onPress={() => {}}
 						></Digit>
 					</View>
 

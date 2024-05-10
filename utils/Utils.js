@@ -3,7 +3,7 @@ const isOperation = (e) => {
 };
 
 const isSpecial = (e) => {
-	return ["×", "÷", "+", "−", ","].includes(e);
+	return ["×", "÷", "+", "−", ",", "^"].includes(e);
 };
 
 const toOperation = (e) => {
@@ -12,6 +12,7 @@ const toOperation = (e) => {
 	e = e.replaceAll("÷", "/");
 	e = e.replaceAll("−", "-");
 	e = e.replaceAll(",", ".");
+	e = e.replaceAll("^", "**");
 	return e;
 };
 
