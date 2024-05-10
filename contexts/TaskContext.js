@@ -1,5 +1,11 @@
 import { createContext, useState } from "react";
-import { isSpecial, toDisplay, toOperation } from "../utils/Utils";
+import {
+	hasOperation,
+	isOperation,
+	isSpecial,
+	toDisplay,
+	toOperation,
+} from "../utils/Utils";
 
 export const TaskContext = createContext();
 export const TaskContextProvider = ({ children }) => {
@@ -17,7 +23,7 @@ export const TaskContextProvider = ({ children }) => {
 	};
 
 	const repeatTask = () => {
-		const split = lastTask.split(/[×÷+-]+/);
+		const split = lastTask.split(/[×÷+−]+/);
 		const lastNumber = split[split.length - 1];
 
 		const repeatTask =
@@ -28,7 +34,7 @@ export const TaskContextProvider = ({ children }) => {
 
 	const doTask = () => {
 		let mainTask = task;
-		if (didTask) mainTask = repeatTask();
+		if (didTask && hasOperation(lastTask)) mainTask = repeatTask();
 
 		setLastTask(mainTask);
 
@@ -53,7 +59,7 @@ export const TaskContextProvider = ({ children }) => {
 			newTask = task.slice(0, -1) + e.toString();
 		}
 		if (e === ",") {
-			const split = task.split(/[×÷+-]+/);
+			const split = task.split(/[×÷+−]+/);
 			let lastNumber = split[split.length - 1];
 			if (lastNumber === "") lastNumber = split[split.length - 2];
 

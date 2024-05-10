@@ -15,10 +15,16 @@ const toOperation = (e) => {
 	return e;
 };
 
+const hasOperation = (e) => {
+	return (
+		e.includes("×") || e.includes("÷") || e.includes("+") || e.includes("−")
+	);
+};
+
 const toDisplay = (e) => {
 	e = e.toString();
 	e = e.replaceAll(".", ",");
 	return e;
 };
 
-export { isOperation, isSpecial, toOperation, toDisplay };
+export { isOperation, isSpecial, toOperation, toDisplay, hasOperation };

@@ -1,24 +1,26 @@
 import { createContext, useState } from "react";
-import { GrayTheme, PurpleTheme } from "../utils/Colors";
+import { Themes } from "../utils/Themes";
 
 export const ThemeContext = createContext();
 export const ThemeContextProvider = ({ children }) => {
-	const [theme, setTheme] = useState(GrayTheme);
+	const [theme, setTheme] = useState(Themes[0]);
 	const colors = {
 		DEFAULT: {
-			fontColor: theme.light,
-			backgroundColor: theme.dark,
-			highlightColor: theme.primary,
+			fontColor: theme.defaultButton.color,
+			backgroundColor: theme.defaultButton.background,
+			highlightColor: theme.background,
 		},
 		INVERTED: {
-			fontColor: theme.dark,
-			backgroundColor: theme.light,
-			highlightColor: theme.primary,
+			fontColor: theme.invertedButton.color,
+			backgroundColor: theme.invertedButton.background,
+			highlightColor: theme.background,
 		},
 	};
 
 	const alternateTheme = () => {
-		setTheme(theme === GrayTheme ? PurpleTheme : GrayTheme);
+		const othersThemes = Themes.filter((t) => t !== theme);
+		const newTheme = Math.floor(Math.random() * othersThemes.length);
+		setTheme(othersThemes[newTheme]);
 	};
 
 	return (

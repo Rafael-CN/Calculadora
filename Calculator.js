@@ -10,14 +10,14 @@ import { ThemeContext } from "./contexts/ThemeContext";
 
 export default function Calculator() {
 	const { theme, colors } = useContext(ThemeContext);
-	NavigationBar.setBackgroundColorAsync(theme.primary);
+	NavigationBar.setBackgroundColorAsync(theme.background);
 
 	const { resetTask, removeLastDigit, doTask } = useContext(TaskContext);
 
 	const styles = StyleSheet.create({
 		container: {
 			flex: 1,
-			backgroundColor: theme.primary,
+			backgroundColor: theme.background,
 			alignItems: "center",
 			justifyContent: "flex-end",
 			paddingBottom: 15,
@@ -45,7 +45,7 @@ export default function Calculator() {
 					<View style={styles.numberLine}>
 						<Digit text="C" style={colors.INVERTED} onPress={resetTask}></Digit>
 						<Digit
-							text="⌫"
+							text="E"
 							style={colors.INVERTED}
 							onPress={removeLastDigit}
 						></Digit>

@@ -19,8 +19,8 @@ export default function Result() {
 			height: "40%",
 			marginBottom: 20,
 			justifyContent: "flex-end",
-			backgroundColor: theme.dark,
-			borderBottomLeftRadius: 80,
+			backgroundColor: theme.displayBackground,
+			borderBottomLeftRadius: theme.borderRadius * 1.5,
 		},
 
 		result: {
@@ -33,13 +33,13 @@ export default function Result() {
 			fontSize: 35,
 			fontWeight: "300",
 			textAlign: "right",
-			color: theme.light,
+			color: theme.displayColor,
 		},
 
 		resultText: {
 			fontSize: 100,
 			fontWeight: "300",
-			color: theme.light,
+			color: theme.displayColor,
 			textAlign: "right",
 		},
 	});
