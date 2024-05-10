@@ -40,4 +40,19 @@ const FadeIn = (animationValue) => {
 	]).start();
 };
 
-export { Pulse, FadeIn };
+const Highlight = (animationValue) => {
+	Animated.sequence([
+		Animated.timing(animationValue, {
+			toValue: 1,
+			duration: 150,
+			useNativeDriver: false,
+		}),
+		Animated.timing(animationValue, {
+			toValue: 0,
+			duration: 150,
+			useNativeDriver: false,
+		}),
+	]).start();
+};
+
+export { Pulse, FadeIn, Highlight };

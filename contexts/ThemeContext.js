@@ -8,12 +8,12 @@ export const ThemeContextProvider = ({ children }) => {
 		DEFAULT: {
 			fontColor: theme.defaultButton.color,
 			backgroundColor: theme.defaultButton.background,
-			highlightColor: theme.background,
+			highlightColor: theme.defaultButton.highlight,
 		},
 		INVERTED: {
 			fontColor: theme.invertedButton.color,
 			backgroundColor: theme.invertedButton.background,
-			highlightColor: theme.background,
+			highlightColor: theme.invertedButton.highlight,
 		},
 	};
 

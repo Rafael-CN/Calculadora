@@ -16,10 +16,12 @@ export const TaskContextProvider = ({ children }) => {
 	const resetTask = () => {
 		setTask("0");
 		setLastTask("");
+		setDidTask(false);
 	};
 
 	const removeLastDigit = () => {
 		setTask(task.length > 1 ? task.slice(0, -1) : "0");
+		setDidTask(false);
 	};
 
 	const repeatTask = () => {

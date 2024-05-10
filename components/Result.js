@@ -1,8 +1,16 @@
-import { useContext, useEffect, useRef } from "react";
-import { Animated, StyleSheet, Text, View } from "react-native";
+import { useContext, useEffect, useRef, useState } from "react";
+import {
+	Animated,
+	StyleSheet,
+	Text,
+	TouchableHighlight,
+	Vibration,
+	View,
+} from "react-native";
 import { ThemeContext } from "../contexts/ThemeContext";
 import { TaskContext } from "../contexts/TaskContext";
-import { FadeIn } from "../utils/Animations";
+import { FadeIn, Highlight } from "../utils/Animations";
+import Entypo from "@expo/vector-icons/Entypo";
 
 export default function Result() {
 	const { theme, alternateTheme } = useContext(ThemeContext);
@@ -13,6 +21,12 @@ export default function Result() {
 		if (didTask) FadeIn(fadeAnim);
 	}, [didTask]);
 
+	const [iconAnim] = useState(new Animated.Value(0));
+	const iconBgColor = iconAnim.interpolate({
+		inputRange: [0, 1],
+		outputRange: ["rgba(255,255,255,0)", "rgba(255,255,255,0.1)"],
+	});
+
 	const styles = StyleSheet.create({
 		topSection: {
 			width: "100%",
@@ -21,6 +35,22 @@ export default function Result() {
 			justifyContent: "flex-end",
 			backgroundColor: theme.displayBackground,
 			borderBottomLeftRadius: theme.borderRadius * 1.5,
+		},
+
+		themeButton: {
+			position: "absolute",
+			top: 70,
+			left: 10,
+			zIndex: 1,
+			padding: 25,
+			width: 75,
+			borderRadius: theme.borderRadius,
+			backgroundColor: iconBgColor,
+		},
+
+		themeIcon: {
+			color: theme.displayColor,
+			fontSize: 25,
 		},
 
 		result: {
@@ -45,7 +75,20 @@ export default function Result() {
 	});
 
 	return (
-		<View style={styles.topSection} onTouchStart={alternateTheme}>
+		<View style={styles.topSection}>
+			<Animated.View
+				style={styles.themeButton}
+				underlayColor={theme.background}
+				onTouchStart={() => {
+					Vibration.vibrate(150);
+					Highlight(iconAnim);
+
+					alternateTheme();
+				}}
+			>
+				<Entypo name="light-bulb" style={styles.themeIcon}></Entypo>
+			</Animated.View>
+
 			<View style={{ opacity: 0.6 }}>
 				<Animated.Text
 					style={[styles.lastResult, { opacity: fadeAnim }]}

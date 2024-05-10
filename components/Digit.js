@@ -1,4 +1,4 @@
-import { useContext, useMemo, useRef } from "react";
+import { useContext, useMemo, useRef, useState } from "react";
 import {
 	StyleSheet,
 	Vibration,
@@ -6,7 +6,7 @@ import {
 	TouchableHighlight,
 } from "react-native";
 import { TaskContext } from "../contexts/TaskContext";
-import { Pulse } from "../utils/Animations";
+import { Highlight, Pulse } from "../utils/Animations";
 import { ThemeContext } from "../contexts/ThemeContext";
 
 const defaultSize = 85;
@@ -27,6 +27,12 @@ export default function Digit({
 	let width = defaultSize * size + (size > 1 ? marginH * size : 0);
 	if (!style) style = colors.DEFAULT;
 
+	const [bgAnim] = useState(new Animated.Value(0));
+	const bgColor = bgAnim.interpolate({
+		inputRange: [0, 1],
+		outputRange: [style.backgroundColor, style.highlightColor],
+	});
+
 	const styles = StyleSheet.create({
 		number: {
 			height: defaultSize,
@@ -35,7 +41,7 @@ export default function Digit({
 			marginVertical: 5,
 			borderRadius: theme.borderRadius,
 			justifyContent: "center",
-			backgroundColor: style.backgroundColor,
+			backgroundColor: bgColor,
 		},
 
 		numberText: {
@@ -47,20 +53,20 @@ export default function Digit({
 	});
 
 	return (
-		<TouchableHighlight
+		<Animated.View
 			style={styles.number}
-			onPress={() => {
+			onTouchStart={() => {
 				Vibration.vibrate(50);
 				Pulse(fontSizeAnim, defaultFontSize);
+				Highlight(bgAnim);
 
 				onPress ? onPress() : addDigit(text);
 			}}
-			underlayColor={style.highlightColor}
-			delayPressOut={50}
+			onTouchEnd={() => {}}
 		>
 			<Animated.Text style={[styles.numberText, { fontSize: fontSizeAnim }]}>
 				{text}
 			</Animated.Text>
-		</TouchableHighlight>
+		</Animated.View>
 	);
 }
