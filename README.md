@@ -14,6 +14,7 @@
 
 <h3 align="center">Features</h3>
 <div align="center">
-  <p>Alternate between random themes with a fluid animation</p>
-  <img src="https://github.com/Rafael-CN/Calcus/assets/115326287/490882c0-ba30-4dbe-993e-01b7ccd5b74f">
+  <p>Alternate between random themes with a fluid animation and perform basic arithmetical operations</p>
+  <img src="https://github.com/Rafael-CN/Calcus/assets/115326287/490882c0-ba30-4dbe-993e-01b7ccd5b74f" width="20%">
+  <img src="https://github.com/Rafael-CN/Calcus/assets/115326287/fc12b300-ea77-43c1-bbbf-2e7bf4ab2cba" width="20%">
 </div>
