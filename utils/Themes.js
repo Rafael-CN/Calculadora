@@ -1,4 +1,4 @@
-export const GrayTheme = {
+const GrayTheme = {
 	background: "#4E505F",
 	defaultButton: {
 		color: "#B0B1BE",
@@ -14,7 +14,7 @@ export const GrayTheme = {
 	displayColor: "#B0B1BE",
 	borderRadius: 30,
 };
-export const PurpleTheme = {
+const PurpleTheme = {
 	background: "#F0E8F7",
 	defaultButton: {
 		color: "#D3C1E2",
@@ -30,7 +30,7 @@ export const PurpleTheme = {
 	displayColor: "#604E73",
 	borderRadius: 50,
 };
-export const GreenTheme = {
+const GreenTheme = {
 	background: "#B8D5CA",
 	defaultButton: {
 		color: "#B8D5CA",
@@ -46,4 +46,55 @@ export const GreenTheme = {
 	displayColor: "#B8D5CA",
 	borderRadius: 20,
 };
-export const Themes = [GrayTheme, PurpleTheme, GreenTheme];
+const IronManTheme = {
+	background: "#6C1211",
+	defaultButton: {
+		color: "#F9E180",
+		background: "#AE1B1B",
+		highlight: "#FFF",
+	},
+	invertedButton: {
+		color: "#6C1211",
+		background: "#EBCC4F",
+		highlight: "#FFF",
+	},
+	displayBackground: "#EBCC4F",
+	displayColor: "#6C1211",
+	borderRadius: 18,
+};
+const NeonTheme = {
+	background: "#181F2A",
+	defaultButton: {
+		color: "#FF1178",
+		background: "#1D2737",
+		highlight: "#000",
+		textEffect: {
+			textShadowColor: "#FF4193",
+			textShadowRadius: 25,
+		},
+	},
+	invertedButton: {
+		color: "#01FFF4",
+		background: "#263346",
+		highlight: "#000",
+		textEffect: {
+			textShadowColor: "#4BFFF7",
+			textShadowRadius: 25,
+		},
+	},
+	displayBackground: "#263346",
+	displayColor: "#01FFF4",
+	displayEffect: {
+		textShadowColor: "#4BFFF7",
+		textShadowRadius: 15,
+	},
+	borderRadius: 25,
+};
+
+export const Themes = [
+	GrayTheme,
+	PurpleTheme,
+	GreenTheme,
+	IronManTheme,
+	NeonTheme,
+];

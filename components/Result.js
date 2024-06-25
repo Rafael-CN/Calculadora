@@ -59,6 +59,8 @@ export default function Result() {
 			color: theme.displayColor,
 			textAlign: "right",
 		},
+
+		textEffect: theme.displayEffect || {},
 	});
 
 	const transitionRef = useRef();
@@ -80,7 +82,10 @@ export default function Result() {
 					}, 250);
 				}}
 			>
-				<Entypo name="light-bulb" style={styles.themeIcon}></Entypo>
+				<Entypo
+					name="light-bulb"
+					style={[styles.themeIcon, styles.textEffect]}
+				></Entypo>
 			</Animated.View>
 
 			<View style={{ opacity: 0.6 }}>
@@ -95,7 +100,7 @@ export default function Result() {
 
 			<Animated.View style={[styles.result, { opacity: fadeAnim }]}>
 				<Text
-					style={styles.resultText}
+					style={[styles.resultText, styles.textEffect]}
 					adjustsFontSizeToFit={true}
 					numberOfLines={1}
 				>

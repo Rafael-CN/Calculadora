@@ -9,11 +9,13 @@ export const ThemeContextProvider = ({ children }) => {
 			fontColor: theme.defaultButton.color,
 			backgroundColor: theme.defaultButton.background,
 			highlightColor: theme.defaultButton.highlight,
+			textEffect: theme.defaultButton.textEffect || {},
 		},
 		INVERTED: {
 			fontColor: theme.invertedButton.color,
 			backgroundColor: theme.invertedButton.background,
 			highlightColor: theme.invertedButton.highlight,
+			textEffect: theme.invertedButton.textEffect || {},
 		},
 	};
 

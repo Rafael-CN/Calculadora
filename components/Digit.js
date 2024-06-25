@@ -1,10 +1,5 @@
-import { useContext, useMemo, useRef, useState } from "react";
-import {
-	StyleSheet,
-	Vibration,
-	Animated,
-	TouchableHighlight,
-} from "react-native";
+import { useContext, useRef, useState } from "react";
+import { StyleSheet, Vibration, Animated } from "react-native";
 import { TaskContext } from "../contexts/TaskContext";
 import { Highlight, Pulse } from "../utils/Animations";
 import { ThemeContext } from "../contexts/ThemeContext";
@@ -48,9 +43,12 @@ export default function Digit({
 		numberText: {
 			fontSize: defaultFontSize,
 			fontWeight: "300",
+			fontFamily: "Stark",
 			color: style.fontColor,
 			textAlign: "center",
 		},
+
+		textEffect: style.textEffect,
 	});
 
 	return (
@@ -65,7 +63,13 @@ export default function Digit({
 			}}
 			onTouchEnd={() => {}}
 		>
-			<Animated.Text style={[styles.numberText, { fontSize: fontSizeAnim }]}>
+			<Animated.Text
+				style={[
+					styles.numberText,
+					styles.textEffect,
+					{ fontSize: fontSizeAnim },
+				]}
+			>
 				{text}
 			</Animated.Text>
 		</Animated.View>
